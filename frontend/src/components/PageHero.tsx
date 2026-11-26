@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react'
 export default function PageHero({ eyebrow, title, lead, image, crumbs = [] }: { eyebrow: string; title: string; lead?: string; image?: string; crumbs?: { to: string; label: string }[] }) {
   return (
     <section className="relative overflow-hidden bg-navy-900 pb-12 pt-24 text-white sm:pb-20 sm:pt-36 lg:pb-24 lg:pt-44">
-      {image && <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-25" />}
+      {image && <img src={image} alt="" loading="eager" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-25" />}
       <div className="absolute inset-0 bg-gradient-to-br from-navy-950/90 via-navy-900/80 to-navy-700/60" />
       <div className="pointer-events-none absolute -left-40 top-0 h-full w-80 animate-beam bg-gradient-to-r from-transparent via-gold-300/20 to-transparent blur-2xl" />
       <div className="wrap relative">
