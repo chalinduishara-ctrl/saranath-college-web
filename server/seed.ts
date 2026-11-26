@@ -9,7 +9,7 @@ const PHOTO = {
   sportsGroundCollege: C + 'WhatsApp_Image_2026-11-26_at_15.42.31__2__8ebafb11.jpeg',
   mainHall: C + 'WhatsApp_Image_2026-11-26_at_15.42.29_efbd1587.jpeg',
   visionMissionTree: C + 'WhatsApp_Image_2026-11-26_at_15.42.31__1__60d025be.jpeg',
-  facultyOfTech: C + 'IMG_9812_e2f50b42.jpg',
+  facultyOfTech: C + 'image_d42eb734.png',
   corridorPalm: C + 'WhatsApp_Image_2026-11-26_at_15.42.31_4221fa26.jpeg',
   corridorWhite: C + 'WhatsApp_Image_2026-11-26_at_15.42.32_62a87b41.jpeg',
   corridorGajaba: C + 'WhatsApp_Image_2026-11-26_at_15.42.33_58e7d245.jpeg',
@@ -24,6 +24,9 @@ const PHOTO = {
   treeSunbeamsBench: C + 'IMG_9792_2e7d1393.jpg',
   fieldLowAngle: C + 'IMG_9806_74bf653a.jpg',
   fieldGrassTree: C + 'IMG_9801_0d204b66.jpg',
+  principalPhoto: C + 'image_9f80d91f.png',
+  sportsMeetCeremony: C + 'image_027b5e35.png',
+  sportsMeetTrack: C + 'image_f019b2b9.png',
 }
 
 export function seedDatabase(): void {
@@ -56,13 +59,13 @@ export function seedDatabase(): void {
       { value: '124', suffix: '', label: 'University entrants in 2017' },
     ],
     sports_meet_title: 'Inter-House Sports Meet',
-    sports_meet_note: 'Points are updated by the sports committee during the meet.',
+    sports_meet_note: 'Season runs from 3 December 2026 to 6 February 2027, culminating in the main Sports Meet on 6 February.',
   }
 
   store.principalSettings = {
     name: 'Mr. R.M.C. Randeniya',
     title: 'Principal, Saranath College',
-    photo: '',
+    photo: PHOTO.principalPhoto,
     quote: 'Every great institution is built by those who came before us. Ours began with thirty students and a vision.',
     message:
       "It is with immense pride that I welcome you to Saranath College, Kuliyapitiya. Founded in 1882 under the leadership of Headmaster Anthony de Silva with just thirty students, our College has grown over more than a century into a place that has shaped thousands of lives.\n\n" +
@@ -155,22 +158,13 @@ export function seedDatabase(): void {
 
   const streams: [string, string, string, string, string, string[], string][] = [
     [
-      'Physical Science',
-      'Science stream',
-      'Mathematics, physics and the physical sciences.',
-      'Engineering, physical sciences and technology.',
-      'A rigorous stream for students interested in mathematics, physics and understanding how the world works.',
-      ['Combined Mathematics', 'Physics', 'Chemistry', 'ICT'],
+      'Science Section',
+      'Physical & Biological Sciences',
+      'Mathematics, biology, physics, chemistry and the natural sciences.',
+      'Medicine, engineering, health sciences, physical sciences and research.',
+      'Our A/L Science Section brings together both Physical Science and Biological Science pathways, preparing students for medicine, engineering, computing and scientific research.',
+      ['Combined Mathematics', 'Biology', 'Physics', 'Chemistry', 'Agricultural Science', 'ICT'],
       PHOTO.corridorPalm,
-    ],
-    [
-      'Biological Science',
-      'Science stream',
-      'Living systems, health and the natural environment.',
-      'Health sciences, agriculture and biological research.',
-      'Explore living systems and the natural world through scientific study and practical investigation.',
-      ['Biology', 'Chemistry', 'Physics', 'Agricultural Science'],
-      PHOTO.visionMissionTree,
     ],
     [
       'Commerce',
@@ -295,16 +289,20 @@ export function seedDatabase(): void {
     })
   })
 
-  const events: [string, string, string, string, string, string, string, string][] = [
+  const events: [string, string, string, string, string, string, string, string, string?, string[]?][] = [
     [
-      'Annual Inter-House Athletic Championship',
+      'Annual Inter-House Sports Meet',
       'Sports',
-      '2027-02-18',
+      '2027-02-06',
       '8.00 am',
       'College Main Grounds, Meegahakotuwa',
-      'Thisara, Mayura, Lihini and Paravi houses compete across track and field, march-past and relay finals.',
+      'Running from 3 December 2026 to 6 February 2027, the Annual Inter-House Sports Meet unites Thisara, Mayura, Lihini and Paravi houses across weeks of qualifiers, culminating in the grand meet on 6 February.',
       '',
-      PHOTO.sportsGroundCollege,
+      PHOTO.sportsMeetTrack,
+      'The Annual Inter-House Sports Meet season runs from 3 December 2026 to 6 February 2027, bringing together students from Thisara, Mayura, Lihini and Paravi houses in a proud celebration of athleticism, teamwork and college spirit.\n\n' +
+        'Beginning on 3 December with house selections, field events and preliminary track heats, competition unfolds across the College grounds over nine weeks as athletes earn crucial points for their houses.\n\n' +
+        'The season culminates on Saturday, 6 February 2027, with the main Sports Meet at the College Main Grounds, Meegahakotuwa — featuring the ceremonial flag hoisting, march-past, track and relay finals, and the crowning of the overall house champions.',
+      [PHOTO.sportsMeetCeremony, PHOTO.sportsMeetTrack],
     ],
     [
       "Founders' Day & Prize Giving",
@@ -367,7 +365,7 @@ export function seedDatabase(): void {
       PHOTO.heroSunset,
     ],
   ]
-  events.forEach(([title, category, date, time, venue, excerpt, outcome, image]) => {
+  events.forEach(([title, category, date, time, venue, excerpt, outcome, image, body, photos]) => {
     const id = store.nextId('events')
     store.events.push({
       id,
@@ -378,10 +376,11 @@ export function seedDatabase(): void {
       time,
       venue,
       excerpt,
-      body: excerpt,
+      body: body ?? excerpt,
       outcome,
       image,
       image_alt: title,
+      ...(photos ? { photos } : {}),
       published: true,
       created_at: ts,
       updated_at: ts,
@@ -389,6 +388,8 @@ export function seedDatabase(): void {
   })
 
   const gallery: [string, string, 'sport' | 'learning' | 'arts' | 'community' | 'events', 'normal' | 'wide' | 'tall'][] = [
+    [PHOTO.sportsMeetTrack, 'Track finals at the Annual Inter-House Sports Meet', 'sport', 'wide'],
+    [PHOTO.sportsMeetCeremony, 'Flag hoisting ceremony with the Principal and staff at the Sports Meet', 'events', 'wide'],
     [PHOTO.heroSunset, 'Golden hour along the main campus walkway', 'community', 'wide'],
     [PHOTO.visionMissionTree, 'Our Vision and Mission carved beneath the mango tree', 'learning', 'tall'],
     [PHOTO.sportsGroundCollege, 'College grounds and the yellow Sarana block', 'sport', 'wide'],

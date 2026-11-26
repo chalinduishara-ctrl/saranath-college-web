@@ -64,6 +64,7 @@ export const EventInSchema = z
     outcome: text(5000).default(''),
     image: imagePath.default(''),
     image_alt: text(200).default(''),
+    photos: z.array(imagePath).max(12).optional(),
     published: z.boolean().default(true),
   })
   .strict()

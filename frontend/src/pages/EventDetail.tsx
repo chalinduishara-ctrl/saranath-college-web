@@ -38,6 +38,15 @@ export default function EventDetail() {
       <div className="wrap max-w-3xl py-10 sm:py-14">
         {e.excerpt && <p className="mb-6 font-serif text-xl leading-snug text-navy-900 sm:mb-8 sm:text-2xl">{e.excerpt}</p>}
         <div className="prose-school">{paragraphs(e.body).filter((p) => p !== e.excerpt).map((p, i) => <p key={i}>{p}</p>)}</div>
+        {e.photos && e.photos.length > 0 && (
+          <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2">
+            {e.photos.map((src, i) => (
+              <div key={src} className="overflow-hidden rounded-2xl border border-line bg-navy-950 shadow-[0_12px_32px_-16px_rgba(6,23,61,.2)]">
+                <Img src={src} alt={`${e.title} photo ${i + 1}`} className="aspect-[4/3] h-full w-full object-cover" />
+              </div>
+            ))}
+          </div>
+        )}
         {e.outcome && (
           <div className="mt-8 rounded-2xl bg-gold-300/25 p-5 ring-1 ring-gold-500/30 sm:p-6">
             <div className="flex items-center gap-2 font-semibold text-navy-900"><Trophy className="h-5 w-5 text-gold-600" />Highlights & results</div>

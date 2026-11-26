@@ -3,7 +3,7 @@ export const CAMPUS_PHOTOS = {
   sportsGroundCollege: '/assets/aistudio/WhatsApp_Image_2026-11-26_at_15.42.31__2__8ebafb11.jpeg',
   mainHall: '/assets/aistudio/WhatsApp_Image_2026-11-26_at_15.42.29_efbd1587.jpeg',
   visionMissionTree: '/assets/aistudio/WhatsApp_Image_2026-11-26_at_15.42.31__1__60d025be.jpeg',
-  facultyOfTech: '/assets/aistudio/IMG_9812_e2f50b42.jpg',
+  facultyOfTech: '/assets/aistudio/image_d42eb734.png',
   corridorPalm: '/assets/aistudio/WhatsApp_Image_2026-11-26_at_15.42.31_4221fa26.jpeg',
   corridorWhite: '/assets/aistudio/WhatsApp_Image_2026-11-26_at_15.42.32_62a87b41.jpeg',
   corridorGajaba: '/assets/aistudio/WhatsApp_Image_2026-11-26_at_15.42.33_58e7d245.jpeg',

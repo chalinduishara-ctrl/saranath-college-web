@@ -45,9 +45,7 @@ export default function CampusShowcase({ bg = 'bg-paper' }: { bg?: string }) {
                       src={current.image}
                       alt=""
                       aria-hidden="true"
-                      loading="lazy"
-                      decoding="async"
-                      className="absolute inset-0 h-full w-full scale-110 object-cover opacity-35 blur-xl"
+                      className="absolute inset-0 h-full w-full scale-110 object-cover opacity-35 blur-2xl"
                     />
                     <div className="absolute inset-0 bg-navy-950/35" />
                     <Img

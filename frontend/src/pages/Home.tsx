@@ -1,8 +1,8 @@
-import { useCallback, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, BookOpen, ChevronDown, MessageSquareHeart, Users } from 'lucide-react'
-import IntroMotto, { hasIntroPlayed } from '../components/IntroMotto'
+import IntroMotto from '../components/IntroMotto'
 import { Reveal, SectionHeading } from '../components/Reveal'
 import CountUp from '../components/CountUp'
 import Timeline from '../components/Timeline'
@@ -31,8 +31,7 @@ export default function Home() {
   const { data: gallery } = useGallery()
   const { upcoming, past } = splitEvents(events)
 
-  const [heroReady, setHeroReady] = useState(() => hasIntroPlayed())
-  const handleRevealHero = useCallback(() => setHeroReady(true), [])
+  const [heroReady, setHeroReady] = useState(false)
 
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
@@ -42,6 +41,7 @@ export default function Home() {
   const founded = school?.founded ?? 1882
   const age = new Date().getFullYear() - founded
   const motto = school?.motto_si || 'පඤ්ඤා නරානං රතනං'
+  const heroImage = school?.hero_image || CAMPUS_PHOTOS.heroSunset
 
   return (
     <>
@@ -52,59 +52,30 @@ export default function Home() {
         name={school?.name || 'Saranath College'}
         location={school?.location || 'Kuliyapitiya'}
         founded={founded}
-        onRevealHero={handleRevealHero}
+        onReveal={() => setHeroReady(true)}
       />
 
       {/* HERO */}
       <section ref={heroRef} className="relative flex min-h-[580px] h-[100svh] max-h-[960px] flex-col justify-center overflow-hidden bg-navy-950">
         <motion.div style={{ y: bgY }} className="absolute inset-0">
           <motion.img
-            src={school?.hero_image || CAMPUS_PHOTOS.heroSunset} alt="Saranath College campus walkway at sunset"
-            loading="eager"
-            decoding="async"
+            src={heroImage} alt="Saranath College campus walkway at sunset"
             className="h-full w-full object-cover object-[center_36%]"
-            initial={{ scale: 1.14 }}
-            animate={{ scale: heroReady ? 1.03 : 1.14 }}
-            transition={{ duration: heroReady ? 6.5 : 0.4, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ scale: 1.09 }}
+            animate={{ scale: heroReady ? 1.0 : 1.09 }}
+            transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
           />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-b from-navy-950/70 via-navy-950/35 to-navy-950/92" />
         <div className="pointer-events-none absolute -left-1/4 top-0 h-full w-1/2 animate-beam bg-gradient-to-r from-transparent via-gold-300/15 to-transparent blur-3xl" />
-        <motion.img
-          src={school?.logo || '/media/seed/crest-transparent.webp'}
-          alt=""
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: heroReady ? 0.06 : 0, scale: heroReady ? 1 : 0.94 }}
-          transition={{ duration: 1.2, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="pointer-events-none absolute -right-24 bottom-0 hidden h-[80%] w-auto lg:block"
-        />
+        <img src={school?.logo || '/media/seed/crest-transparent.webp'} alt="" className="pointer-events-none absolute -right-24 bottom-0 hidden h-[80%] w-auto opacity-[0.06] lg:block" />
 
         <motion.div style={{ opacity: fade }} className="wrap relative pt-10 pb-16 text-white sm:pt-16">
-          <motion.div
-            initial="hidden"
-            animate={heroReady ? 'show' : 'hidden'}
-            transition={{ staggerChildren: 0.11, delayChildren: 0.08 }}
-          >
-            <div className="overflow-hidden">
-              <motion.div variants={rise} transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }} className="font-serif text-xl italic text-gold-300 sm:text-3xl">
-                Welcome to
-              </motion.div>
-            </div>
-            <div className="overflow-hidden pb-2">
-              <motion.h1 variants={rise} transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }} className="font-serif text-[clamp(2.75rem,11vw,8.25rem)] font-semibold leading-[0.96] tracking-tight">
-                {school?.name || 'Saranath College'}
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden">
-              <motion.div variants={rise} transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }} className="mt-3 text-[11px] font-semibold tracking-[0.24em] text-white/85 sm:mt-4 sm:text-sm sm:tracking-[0.4em]">
-                {(school?.location || 'Kuliyapitiya').toUpperCase()} · SINCE {founded}
-              </motion.div>
-            </div>
-            <motion.div
-              variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap"
-            >
+          <motion.div initial="hidden" animate={heroReady ? 'show' : 'hidden'} transition={{ staggerChildren: 0.13, delayChildren: 0.24 }}>
+            <div className="overflow-hidden"><motion.div variants={rise} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} className="font-serif text-xl italic text-gold-300 sm:text-3xl">Welcome to</motion.div></div>
+            <div className="overflow-hidden pb-2"><motion.h1 variants={rise} transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }} className="font-serif text-[clamp(2.75rem,11vw,8.25rem)] font-semibold leading-[0.96] tracking-tight">{school?.name || 'Saranath College'}</motion.h1></div>
+            <div className="overflow-hidden"><motion.div variants={rise} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} className="mt-3 text-[11px] font-semibold tracking-[0.24em] text-white/85 sm:mt-4 sm:text-sm sm:tracking-[0.4em]">{(school?.location || 'Kuliyapitiya').toUpperCase()} · SINCE {founded}</motion.div></div>
+            <motion.div variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }} transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }} className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap">
               <Link to="/about" className="btn-gold w-full sm:w-auto">Discover our story <ArrowRight className="h-4 w-4" /></Link>
               <Link to="/events" className="btn-ghost w-full sm:w-auto">Upcoming events</Link>
             </motion.div>
@@ -113,9 +84,9 @@ export default function Home() {
 
         <motion.a
           href="#legacy"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: heroReady ? 1 : 0, y: heroReady ? 0 : 8 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: heroReady ? 1 : 0 }}
+          transition={{ delay: 0.55, duration: 0.6 }}
           className="absolute bottom-20 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5 text-[0.65rem] font-bold tracking-[0.3em] text-white/75 lg:bottom-8"
         >
           SCROLL <ChevronDown className="h-4 w-4 animate-bounce" />
@@ -158,7 +129,7 @@ export default function Home() {
           <div className="wrap grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
             <Reveal className="relative mx-auto w-full max-w-[300px] sm:max-w-sm">
               <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-navy-900 shadow-[0_24px_48px_-24px_rgba(6,23,61,.4)]">
-                {principal.photo ? <Img src={principal.photo} alt={principal.name} className="h-full w-full object-cover" /> : (
+                {principal.photo ? <Img src={principal.photo} alt={principal.name} className="h-full w-full object-cover object-top" /> : (
                   <div className="grid h-full place-items-center"><img src={school?.logo} alt="" className="h-32 w-auto opacity-90 sm:h-40" /></div>
                 )}
               </div>
@@ -190,23 +161,26 @@ export default function Home() {
             <Reveal className="mb-8 md:mb-12"><Link to="/academics" className="btn-outline w-full sm:w-auto">All pathways <ArrowRight className="h-4 w-4" /></Link></Reveal>
           </div>
           <div className="grid gap-5 sm:gap-6 md:grid-cols-3">
-            {(academics?.levels ?? []).map((l, i) => (
-              <Reveal key={l.id} delay={i * 0.08}>
-                <Link to="/academics" className="group relative block aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[4/5] sm:rounded-3xl">
-                  <Img src={l.image} alt={l.name} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/55 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-7">
-                    <div className="text-xs font-bold uppercase tracking-[0.22em] text-gold-400">{l.grade_range}</div>
-                    <h3 className="mt-1.5 font-serif text-2xl font-semibold sm:mt-2 sm:text-3xl">{l.name}</h3>
-                    <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-white/80 sm:mt-2 sm:line-clamp-3">{l.description}</p>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+            {(academics?.levels ?? []).map((l, i) => {
+              const isAL = /a\/l|advanced level/i.test(l.name)
+              return (
+                <Reveal key={l.id} delay={i * 0.08}>
+                  <Link to={isAL ? '/academics?al=open' : '/academics'} className="group relative block aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[4/5] sm:rounded-3xl">
+                    <Img src={l.image} alt={l.name} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/55 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-7">
+                      <div className="text-xs font-bold uppercase tracking-[0.22em] text-gold-400">{l.grade_range}</div>
+                      <h3 className="mt-1.5 font-serif text-2xl font-semibold sm:mt-2 sm:text-3xl">{l.name}</h3>
+                      <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-white/80 sm:mt-2 sm:line-clamp-3">{l.description}</p>
+                    </div>
+                  </Link>
+                </Reveal>
+              )
+            })}
           </div>
           <Reveal className="mt-8 flex flex-wrap justify-center gap-2 sm:mt-10">
-            {(academics?.streams ?? []).map((s) => (
-              <Link to={`/academics?stream=${encodeURIComponent(s.name)}`} key={s.id} className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-navy-900 transition hover:bg-navy-900 hover:text-white">
+            {(academics?.streams ?? []).map((s, idx) => (
+              <Link to={`/academics?stream=${idx}`} key={s.id} className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-navy-900 transition hover:bg-navy-900 hover:text-white">
                 <BookOpen className="h-4 w-4 shrink-0 text-gold-600" />
                 <span className="whitespace-nowrap">{s.name}</span>
               </Link>

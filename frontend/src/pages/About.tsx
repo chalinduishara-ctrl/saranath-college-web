@@ -38,7 +38,7 @@ export default function About() {
           <div className="wrap grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-14">
             <Reveal className="mx-auto w-full max-w-[280px] sm:max-w-xs lg:sticky lg:top-28 lg:max-w-none lg:self-start">
               <div className="overflow-hidden rounded-3xl bg-navy-900">
-                {p.photo ? <Img src={p.photo} alt={p.name} className="aspect-[4/5] w-full object-cover" /> : <div className="grid aspect-[4/5] place-items-center"><img src={s?.logo} alt="" className="h-32 sm:h-36" /></div>}
+                {p.photo ? <Img src={p.photo} alt={p.name} className="aspect-[4/5] w-full object-cover object-top" /> : <div className="grid aspect-[4/5] place-items-center"><img src={s?.logo} alt="" className="h-32 sm:h-36" /></div>}
               </div>
               <div className="mt-4 font-serif text-2xl font-semibold text-navy-900 sm:mt-5">{p.name}</div>
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-600">{p.title}</div>

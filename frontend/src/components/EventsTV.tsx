@@ -44,7 +44,6 @@ export default function EventsTV({ upcoming, past }: { upcoming: SchoolEvent[]; 
               <motion.div key={channel + ev.id} className="absolute inset-0 flex flex-col justify-end" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
                 <motion.img
                   src={ev.image || '/assets/aistudio/WhatsApp_Image_2026-11-26_at_15.42.32__1__31d9bd69.jpeg'} alt={ev.image_alt}
-                  decoding="async"
                   className="absolute inset-0 h-full w-full object-cover"
                   initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 7, ease: 'linear' }}
                 />
