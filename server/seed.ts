@@ -27,6 +27,7 @@ const PHOTO = {
   principalPhoto: C + 'image_9f80d91f.png',
   sportsMeetCeremony: C + 'image_027b5e35.png',
   sportsMeetTrack: C + 'image_f019b2b9.png',
+  scienceSection: C + 'image_5d16824c.png',
 }
 
 export function seedDatabase(): void {
@@ -164,7 +165,7 @@ export function seedDatabase(): void {
       'Medicine, engineering, health sciences, physical sciences and research.',
       'Our A/L Science Section brings together both Physical Science and Biological Science pathways, preparing students for medicine, engineering, computing and scientific research.',
       ['Combined Mathematics', 'Biology', 'Physics', 'Chemistry', 'Agricultural Science', 'ICT'],
-      PHOTO.corridorPalm,
+      PHOTO.scienceSection,
     ],
     [
       'Commerce',

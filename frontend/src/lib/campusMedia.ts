@@ -18,6 +18,7 @@ export const CAMPUS_PHOTOS = {
   treeSunbeamsBench: '/assets/aistudio/IMG_9792_2e7d1393.jpg',
   fieldLowAngle: '/assets/aistudio/IMG_9806_74bf653a.jpg',
   fieldGrassTree: '/assets/aistudio/IMG_9801_0d204b66.jpg',
+  scienceSection: '/assets/aistudio/image_5d16824c.png',
 } as const
 
 export interface CampusLandmark {

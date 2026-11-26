@@ -181,7 +181,7 @@ export default function Academics() {
                     <motion.div key={s.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }} className="card overflow-hidden">
                       <div className="grid bg-navy-950 text-white md:grid-cols-[1.05fr_0.95fr]">
                         <div className="relative aspect-[4/3] overflow-hidden bg-navy-950 md:aspect-auto md:min-h-[340px]">
-                          {s.image === CAMPUS_PHOTOS.mainHall ? (
+                          {s.image === CAMPUS_PHOTOS.mainHall || s.image === CAMPUS_PHOTOS.scienceSection ? (
                             <Img src={s.image} alt={s.name} className="h-full w-full object-cover object-center" />
                           ) : (
                             <>
